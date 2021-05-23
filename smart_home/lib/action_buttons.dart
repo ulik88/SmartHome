@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:smart_home/appliances_list.dart';
 
 class ActionButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisSize: MainAxisSize.min,
+        /*  mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         RaisedButton(
           child: Text('Add'),
@@ -17,7 +18,7 @@ class ActionButtons extends StatelessWidget {
           onPressed: () {},
           color: Colors.red,
         ),
-      ],
-    );
+      ], */
+        );
   }
 }
