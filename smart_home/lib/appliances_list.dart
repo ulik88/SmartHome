@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:smart_home/authentication_service.dart';
+import 'package:provider/provider.dart';
 
 class AppliancesList extends StatefulWidget {
   @override
@@ -28,6 +30,17 @@ class AppliancesListState extends State<AppliancesList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Home'),
+        actions: <Widget>[
+          IconButton(
+            onPressed: () {
+              context.read<AuthService>().signOut();
+            },
+            icon: Icon(Icons.logout_sharp),
+          ),
+        ],
+      ),
       resizeToAvoidBottomInset: false,
       body: Center(
         child: Column(
