@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "467571613371",
+    "project_id": "smart-home-beb3f",
+    "storage_bucket": "smart-home-beb3f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:467571613371:android:9af965705d05682d44139e",
+        "android_client_info": {
+          "package_name": "com.example.smart_home"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "467571613371-uanb24hhb5ihbmo8h5a9kau26ab7k695.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDteVhHYHZa7Wpe-Q4FAxEYcUq25l1Eqjk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "467571613371-uanb24hhb5ihbmo8h5a9kau26ab7k695.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
