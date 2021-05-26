@@ -10,23 +10,49 @@ class SignInPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(
-              padding: EdgeInsets.only(
-                  left: 20.0, top: 28.0, right: 20.0, bottom: 10.0)),
+            padding: EdgeInsets.only(
+                left: 20.0, top: 20.0, right: 20.0, bottom: 50.0),
+          ),
           TextField(
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 14),
             controller: emailController,
             decoration: InputDecoration(
-              labelText: "Email",
+              prefixIcon: Icon(Icons.email),
+              hintStyle: TextStyle(color: Colors.grey),
+              labelText: "Enter your email here...",
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(14.0)),
+                borderSide: BorderSide(color: Colors.green, width: 1),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                borderSide: BorderSide(color: Colors.green, width: 0.5),
+              ),
             ),
           ),
           TextField(
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 14),
             controller: passwordController,
             obscureText: true,
             autocorrect: false,
             enableSuggestions: false,
             decoration: InputDecoration(
-              labelText: "Password",
+              prefixIcon: Icon(Icons.password),
+              hintStyle: TextStyle(color: Colors.grey),
+              labelText: "Enter your password here...",
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(14.0)),
+                borderSide: BorderSide(color: Colors.green, width: 1),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                borderSide: BorderSide(color: Colors.green, width: 0.5),
+              ),
             ),
           ),
           RaisedButton(
