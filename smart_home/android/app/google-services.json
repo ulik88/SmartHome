@@ -1,33 +1,62 @@
 {
   "project_info": {
-    "project_number": "467571613371",
-    "project_id": "smart-home-beb3f",
-    "storage_bucket": "smart-home-beb3f.appspot.com"
+    "project_number": "564353782453",
+    "project_id": "jugend-treff",
+    "storage_bucket": "jugend-treff.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:467571613371:android:9af965705d05682d44139e",
+        "mobilesdk_app_id": "1:564353782453:android:dae6c7698941a42f8524fc",
         "android_client_info": {
           "package_name": "com.example.smart_home"
         }
       },
       "oauth_client": [
         {
-          "client_id": "467571613371-uanb24hhb5ihbmo8h5a9kau26ab7k695.apps.googleusercontent.com",
+          "client_id": "564353782453-4b1qbq8p1d7eajeva2ccd3rumckbai79.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDteVhHYHZa7Wpe-Q4FAxEYcUq25l1Eqjk"
+          "current_key": "AIzaSyBPusRRNjrB6e89SXnNNDY05Ro5_EZui8E"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "467571613371-uanb24hhb5ihbmo8h5a9kau26ab7k695.apps.googleusercontent.com",
+              "client_id": "564353782453-4b1qbq8p1d7eajeva2ccd3rumckbai79.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:564353782453:android:687620bb799517528524fc",
+        "android_client_info": {
+          "package_name": "com.ulik.jugendtreff_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "564353782453-4b1qbq8p1d7eajeva2ccd3rumckbai79.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPusRRNjrB6e89SXnNNDY05Ro5_EZui8E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "564353782453-4b1qbq8p1d7eajeva2ccd3rumckbai79.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
@@ -35,5 +64,5 @@
       }
     }
   ],
-  "configuration_version": "1"
+  "configuration_version": "2"
 }
