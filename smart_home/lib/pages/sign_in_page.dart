@@ -10,11 +10,10 @@ class SignInPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(
             padding: EdgeInsets.only(
-                left: 20.0, top: 20.0, right: 20.0, bottom: 50.0),
+                left: 20.0, top: 300.0, right: 20.0, bottom: 50.0),
           ),
           TextField(
             textAlign: TextAlign.center,
@@ -56,6 +55,9 @@ class SignInPage extends StatelessWidget {
             ),
           ),
           RaisedButton(
+            textColor: Colors.white,
+            color: Colors.lightGreen,
+            padding: const EdgeInsets.all(8.0),
             onPressed: () {
               context.read<AuthService>().signIn(
                     email: emailController.text.trim(),

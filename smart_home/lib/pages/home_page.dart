@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:smart_home/action_buttons.dart';
-import 'package:smart_home/appliances_list.dart';
+import 'package:smart_home/widgets/action_buttons.dart';
+import 'package:smart_home/widgets/appliances_list.dart';
 
 class HomePage extends StatelessWidget {
   @override
