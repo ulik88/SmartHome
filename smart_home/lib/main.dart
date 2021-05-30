@@ -2,10 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_home/authentication_service.dart';
+import 'package:smart_home/pages/home_page.dart';
+import 'package:smart_home/services/authentication_service.dart';
 
-import 'package:smart_home/appliances_list.dart';
-import 'sign_in_page.dart';
+import 'package:smart_home/widgets/appliances_list.dart';
+import 'pages/sign_in_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,7 +48,7 @@ class AuthenWrapper extends StatelessWidget {
     if (firebaseUser != null) {
       print(firebaseUser.email);
 
-      return AppliancesList();
+      return HomePage();
     }
     return SignInPage();
   }

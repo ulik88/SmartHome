@@ -1,14 +1,82 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:smart_home/authentication_service.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:smart_home/bloc/appliances_bloc.dart';
+import 'package:smart_home/bloc/appliances_state.dart';
 
-class AppliancesList extends StatefulWidget {
+class AppliancesList extends StatelessWidget {
+  const AppliancesList({Key key}) : super(key: key);
+
   @override
-  State createState() => AppliancesListState();
+  Widget build(BuildContext context) {
+    return BlocBuilder<ApplianceBloc, ApplianceState>(
+        builder: (context, state) {
+      if (state is ApplianceEmptyState) {
+        return Center(
+          child: Text(
+            'No Data recieved, press button "Load"',
+          ),
+        );
+      }
+      if (state is ApplianceLoadingState) {
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      }
+      if (state is ApplianceLoadingState) {
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      }
+      if (state is ApplianceLoadedState) {
+        return ListView.builder(
+          itemCount: state.loadedAppliance.length,
+          itemBuilder: (context, index) => Container(
+            color: index % 2 == 0 ? Colors.white : Colors.blue[50],
+            child: ListTile(
+              leading: Text(
+                'ID: ${state.loadedAppliance[index].userId}',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              title: Column(
+                children: <Widget>[
+                  Text(
+                    '${state.loadedAppliance[index].id}',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        'Title: ${state.loadedAppliance[index].title}',
+                        style: TextStyle(fontStyle: FontStyle.italic),
+                      ),
+                      Text(
+                        'Completed: ${state.loadedAppliance[index].completed}',
+                        style: TextStyle(fontStyle: FontStyle.italic),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ),
+        );
+      }
+      if (state is ApplianceErrorState) {
+        return Center(
+          child: Text(
+            'Erroe fetching ',
+            style: TextStyle(fontSize: 20.0),
+          ),
+        );
+      }
+      return CircularProgressIndicator();
+    });
+  }
 }
 
-class AppliancesListState extends State<AppliancesList> {
+/* @override
+  class AppliancesListState extends State<AppliancesList> {
   List<String> items = [];
   final microwave = new TextEditingController();
   final coffeeMaker = new TextEditingController();
@@ -25,11 +93,9 @@ class AppliancesListState extends State<AppliancesList> {
       return "Mixer";
     }
     return "";
-  }
+  } */
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+/* return Scaffold(
       appBar: AppBar(
         title: Text('Home'),
         actions: <Widget>[
@@ -152,6 +218,4 @@ class AppliancesListState extends State<AppliancesList> {
           ],
         ),
       ),
-    );
-  }
-}
+    ); */
