@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_home/bloc/appliances_bloc.dart';
 import 'package:smart_home/bloc/appliances_state.dart';
+import 'package:smart_home/pages/details_page.dart';
+import 'package:smart_home/pages/home_page.dart';
+import 'package:smart_home/pages/sign_in_page.dart';
 
 class AppliancesList extends StatelessWidget {
   const AppliancesList({Key key}) : super(key: key);
@@ -27,20 +30,69 @@ class AppliancesList extends StatelessWidget {
           child: CircularProgressIndicator(),
         );
       }
+
       if (state is ApplianceLoadedState) {
-        return ListView.builder(
+        return GridView.builder(
+            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 200,
+                childAspectRatio: 3 / 2,
+                crossAxisSpacing: 6,
+                mainAxisSpacing: 5),
+            itemCount: state.loadedAppliance.length,
+            itemBuilder: (context, index) => Card(
+                  color: index % 2 == 0 ? Colors.white : Colors.blue[50],
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DetailsPage(),
+                        ),
+                      );
+                    },
+                    child: ListTile(
+                      leading: Text(
+                        'ID: ${state.loadedAppliance[index].id}',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      title: Column(
+                        children: <Widget>[
+                          /*  Text(
+                          '${state.loadedAppliance[index].userId}',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ), */
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                'Title: ${state.loadedAppliance[index].title}',
+                                style: TextStyle(fontStyle: FontStyle.italic),
+                              ),
+                              Text(
+                                'Completed: ${state.loadedAppliance[index].completed}',
+                                style: TextStyle(fontStyle: FontStyle.italic),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ));
+
+        /*  return ListView.builder(
           itemCount: state.loadedAppliance.length,
-          itemBuilder: (context, index) => Container(
+          itemBuilder: (context, index) => Card(
             color: index % 2 == 0 ? Colors.white : Colors.blue[50],
             child: ListTile(
               leading: Text(
-                'ID: ${state.loadedAppliance[index].userId}',
+                'ID: ${state.loadedAppliance[index].id}',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               title: Column(
                 children: <Widget>[
                   Text(
-                    '${state.loadedAppliance[index].id}',
+                    '${state.loadedAppliance[index].userId}',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   Column(
@@ -60,12 +112,12 @@ class AppliancesList extends StatelessWidget {
               ),
             ),
           ),
-        );
+        ); */
       }
       if (state is ApplianceErrorState) {
         return Center(
           child: Text(
-            'Erroe fetching ',
+            'Error fetching ',
             style: TextStyle(fontSize: 20.0),
           ),
         );

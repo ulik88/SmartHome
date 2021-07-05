@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_home/bloc/appliances_bloc.dart';
+import 'package:smart_home/bloc/appliances_state.dart';
 import 'package:smart_home/services/appliances_repository.dart';
 import 'package:smart_home/services/authentication_service.dart';
 import 'package:smart_home/widgets/action_buttons.dart';
@@ -32,7 +33,8 @@ class HomePage extends StatelessWidget {
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
             ActionButtons(),
             Expanded(child: AppliancesList()),
           ],
