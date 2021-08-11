@@ -1,5 +1,5 @@
-import 'package:smart_home/models/appliances.dart';
-import 'package:smart_home/services/appliance_api_provider.dart';
+import 'package:smart_home/data/appliances.dart';
+import 'package:smart_home/services/appliance_services.dart';
 
 class AppliancesRepository {
   ApplianceProvider _applianceProvider = ApplianceProvider();

@@ -1,8 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:smart_home/models/appliances.dart';
-import 'package:smart_home/pages/home_page.dart';
-import 'package:smart_home/widgets/appliances_list.dart';
 
 class DetailsPage extends StatelessWidget {
   const DetailsPage({key}) : super(key: key);
@@ -81,7 +78,8 @@ class DetailsPage extends StatelessWidget {
               ), //Column
             ), //Padding
           ), //SizedBox
-        ), //Card
+        ),
+        //Card
       ),
     );
   }

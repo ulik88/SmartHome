@@ -1,5 +1,6 @@
 import 'dart:convert';
-import 'package:smart_home/models/appliances.dart';
+import 'package:smart_home/data/appliances.dart';
+
 import 'package:http/http.dart' as http;
 
 class ApplianceProvider {

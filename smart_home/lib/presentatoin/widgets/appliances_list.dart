@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:smart_home/bloc/appliances_bloc.dart';
-import 'package:smart_home/bloc/appliances_state.dart';
-import 'package:smart_home/pages/details_page.dart';
-import 'package:smart_home/pages/home_page.dart';
-import 'package:smart_home/pages/sign_in_page.dart';
+import 'package:smart_home/presentatoin/bloc/appliances_bloc.dart';
+import 'package:smart_home/presentatoin/bloc/appliances_state.dart';
+import 'package:smart_home/presentatoin/pages/details_page.dart';
 
 class AppliancesList extends StatelessWidget {
   const AppliancesList({Key key}) : super(key: key);
@@ -18,11 +16,6 @@ class AppliancesList extends StatelessWidget {
           child: Text(
             'No Data recieved, press button "Load"',
           ),
-        );
-      }
-      if (state is ApplianceLoadingState) {
-        return Center(
-          child: CircularProgressIndicator(),
         );
       }
       if (state is ApplianceLoadingState) {

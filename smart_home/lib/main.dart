@@ -2,11 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_home/pages/home_page.dart';
+import 'package:smart_home/presentatoin/bloc/appliances_event.dart';
+import 'package:smart_home/presentatoin/bloc/appliances_state.dart';
+import 'package:smart_home/presentatoin/pages/home_page.dart';
+import 'package:smart_home/presentatoin/widgets/action_buttons.dart';
 import 'package:smart_home/services/authentication_service.dart';
 
-import 'package:smart_home/widgets/appliances_list.dart';
-import 'pages/sign_in_page.dart';
+import 'presentatoin/pages/sign_in_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,6 +22,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        Provider<ColorBloc>(
+          create: (context) => ColorBloc(null),
+          child: ActionButtons(),
+        ),
         Provider<AuthService>(
           create: (_) => AuthService(FirebaseAuth.instance),
         ),
