@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_home/presentatoin/bloc/appliances_bloc.dart';
+import 'package:smart_home/presentatoin/bloc/appliances_event.dart';
 import 'package:smart_home/presentatoin/bloc/appliances_state.dart';
 import 'package:smart_home/presentatoin/pages/details_page.dart';
+import 'package:smart_home/services/appliences_list.dart';
 
 class AppliancesList extends StatelessWidget {
-  const AppliancesList({Key key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    ColorBloc _bloc = BlocProvider.of<ColorBloc>(context);
     return BlocBuilder<ApplianceBloc, ApplianceState>(
         builder: (context, state) {
       if (state is ApplianceEmptyState) {
@@ -25,87 +26,72 @@ class AppliancesList extends StatelessWidget {
       }
 
       if (state is ApplianceLoadedState) {
-        return GridView.builder(
-            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 200,
-                childAspectRatio: 3 / 2,
-                crossAxisSpacing: 6,
-                mainAxisSpacing: 5),
-            itemCount: state.loadedAppliance.length,
-            itemBuilder: (context, index) => Card(
-                  color: index % 2 == 0 ? Colors.white : Colors.blue[50],
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => DetailsPage(),
-                        ),
-                      );
-                    },
-                    child: ListTile(
-                      leading: Text(
-                        'ID: ${state.loadedAppliance[index].id}',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      title: Column(
-                        children: <Widget>[
-                          /*  Text(
-                          '${state.loadedAppliance[index].userId}',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ), */
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              Text(
-                                'Title: ${state.loadedAppliance[index].title}',
-                                style: TextStyle(fontStyle: FontStyle.italic),
-                              ),
-                              Text(
-                                'Completed: ${state.loadedAppliance[index].completed}',
-                                style: TextStyle(fontStyle: FontStyle.italic),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ));
-
-        /*  return ListView.builder(
-          itemCount: state.loadedAppliance.length,
-          itemBuilder: (context, index) => Card(
-            color: index % 2 == 0 ? Colors.white : Colors.blue[50],
-            child: ListTile(
-              leading: Text(
-                'ID: ${state.loadedAppliance[index].id}',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              title: Column(
-                children: <Widget>[
-                  Text(
-                    '${state.loadedAppliance[index].userId}',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        'Title: ${state.loadedAppliance[index].title}',
-                        style: TextStyle(fontStyle: FontStyle.italic),
-                      ),
-                      Text(
-                        'Completed: ${state.loadedAppliance[index].completed}',
-                        style: TextStyle(fontStyle: FontStyle.italic),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
+        return GridView.custom(
+          padding: EdgeInsets.all(10.0),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: (2 / 1),
+            crossAxisSpacing: 5,
+            mainAxisSpacing: 5,
           ),
-        ); */
+          childrenDelegate: SliverChildListDelegate(
+            state.loadedAppliance
+                .map(
+                  (data) => GestureDetector(
+                      onTap: () {
+                        if (_bloc == ColorEvent) {
+                          return _bloc.add(ColorEvent.event_red);
+                        } else {
+                          _bloc.add(ColorEvent.event_green);
+                        }
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AppliancesList1(),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(16),
+                        color: Colors.green,
+                        child: ListTile(
+                          leading: Text(
+                            'ID: ${state.loadedAppliance}',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          title: Column(
+                            children: <Widget>[
+                              BlocBuilder<ColorBloc, Color>(
+                                builder: (context, currentColor) =>
+                                    AnimatedContainer(
+                                        height: 40,
+                                        width: 40,
+                                        duration: Duration(milliseconds: 300),
+                                        color: currentColor),
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  Text(
+                                    'Title: ${state.loadedAppliance}.',
+                                    style:
+                                        TextStyle(fontStyle: FontStyle.italic),
+                                  ),
+                                  Text(
+                                    'Completed: ${state.loadedAppliance.length}',
+                                    style:
+                                        TextStyle(fontStyle: FontStyle.italic),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      )),
+                )
+                .toList(),
+          ),
+        );
       }
       if (state is ApplianceErrorState) {
         return Center(
@@ -119,148 +105,3 @@ class AppliancesList extends StatelessWidget {
     });
   }
 }
-
-/* @override
-  class AppliancesListState extends State<AppliancesList> {
-  List<String> items = [];
-  final microwave = new TextEditingController();
-  final coffeeMaker = new TextEditingController();
-  final mixer = new TextEditingController();
-
-  String textFieldsAreEmpty() {
-    if (microwave.text.isEmpty) {
-      return "Microwave";
-    }
-    if (coffeeMaker.text.isEmpty) {
-      return "Coffee Maker";
-    }
-    if (mixer.text.isEmpty) {
-      return "Mixer";
-    }
-    return "";
-  } */
-
-/* return Scaffold(
-      appBar: AppBar(
-        title: Text('Home'),
-        actions: <Widget>[
-          IconButton(
-            onPressed: () {
-              context.read<AuthService>().signOut();
-            },
-            icon: Icon(Icons.logout_sharp),
-          ),
-        ],
-      ),
-      resizeToAvoidBottomInset: false,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                RaisedButton(
-                  child: Text('Add'),
-                  onPressed: () {
-                    items.add(microwave.text);
-                    microwave.clear();
-                    setState(() {});
-                  },
-                  color: Colors.blue,
-                ),
-                RaisedButton(
-                  child: Text('Delete'),
-                  onPressed: () {
-                    items.clear();
-                    setState(() {});
-                  },
-                  color: Colors.yellow,
-                ),
-              ],
-            ),
-            TextField(
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(), labelText: 'Microwave'),
-              controller: microwave,
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: items.length,
-                itemBuilder: (BuildContext context, int Index) {
-                  return Text(items[Index]);
-                },
-              ),
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                RaisedButton(
-                  child: Text('Add'),
-                  onPressed: () {
-                    items.add(coffeeMaker.text);
-                    coffeeMaker.clear();
-                    setState(() {});
-                  },
-                  color: Colors.blue,
-                ),
-                RaisedButton(
-                  child: Text('Delete'),
-                  onPressed: () {
-                    items.clear();
-                    setState(() {});
-                  },
-                  color: Colors.yellow,
-                ),
-              ],
-            ),
-            TextField(
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(), labelText: 'Coffee Maker'),
-              controller: coffeeMaker,
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: items.length,
-                itemBuilder: (BuildContext ctxt, int Index) {
-                  return Text(items[Index]);
-                },
-              ),
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                RaisedButton(
-                  child: Text('Add'),
-                  onPressed: () {
-                    items.add(mixer.text);
-                    microwave.clear();
-                    setState(() {});
-                  },
-                  color: Colors.blue,
-                ),
-                RaisedButton(
-                  child: Text('Delete'),
-                  onPressed: () {
-                    items.clear();
-                    setState(() {});
-                  },
-                  color: Colors.yellow,
-                ),
-              ],
-            ),
-            TextField(
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(), labelText: 'Mixer'),
-              controller: mixer,
-            ),
-            Expanded(
-                child: ListView.builder(
-                    itemCount: items.length,
-                    itemBuilder: (BuildContext ctxt, int Index) {
-                      return Text(items[Index]);
-                    }))
-          ],
-        ),
-      ),
-    ); */
