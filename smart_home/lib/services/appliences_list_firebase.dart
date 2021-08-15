@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:smart_home/presentatoin/widgets/appliances_list.dart';
 
-class AppliancesList1 extends StatelessWidget {
+class AppliancesListFireBase extends StatelessWidget {
   TextEditingController titleController = new TextEditingController();
   TextEditingController descriptionController = new TextEditingController();
 
@@ -69,7 +69,7 @@ class AppliancesList1 extends StatelessWidget {
                                         Navigator.of(context)
                                             .userGestureInProgressNotifier
                                             .addListener(() {
-                                          AppliancesList1();
+                                          AppliancesListFireBase();
                                         });
                                       },
                                       child: Text(
