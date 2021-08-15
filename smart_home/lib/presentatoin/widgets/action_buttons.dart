@@ -12,7 +12,7 @@ class ActionButtons extends StatefulWidget {
 class _ActionButtonsState extends State<ActionButtons> {
   @override
   Widget build(BuildContext context) {
-    final ApplianceBloc applianceBloc = BlocProvider.of<ApplianceBloc>(context);
+    /*  final ApplianceBloc applianceBloc = BlocProvider.of<ApplianceBloc>(context); */
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -21,7 +21,7 @@ class _ActionButtonsState extends State<ActionButtons> {
           color: Colors.lightGreen,
           child: Text('Load'),
           onPressed: () {
-            applianceBloc.add(ApplianceLoadEvent());
+            /*   applianceBloc.add(ApplianceLoadEvent()); */
           },
         ),
         SizedBox(
@@ -30,9 +30,9 @@ class _ActionButtonsState extends State<ActionButtons> {
         RaisedButton(
           color: Colors.yellow.shade900,
           child: Text('Delete'),
-          onPressed: () {
+          /*   onPressed: () {
             applianceBloc.add(ApplianceClearEvent());
-          },
+          }, */
         ),
       ],
     );

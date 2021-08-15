@@ -6,7 +6,7 @@ import 'package:smart_home/presentatoin/bloc/appliances_bloc.dart';
 import 'package:smart_home/presentatoin/widgets/action_buttons.dart';
 import 'package:smart_home/presentatoin/widgets/appliances_list.dart';
 import 'package:smart_home/services/appliances_repository.dart';
-import 'package:smart_home/services/appliences_list.dart';
+import 'package:smart_home/services/appliences_list_firebase.dart';
 import 'package:smart_home/services/authentication_service.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,112 +20,110 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final appliancesRepository = AppliancesRepository();
+/*    /*  final appliancesRepository = AppliancesRepository(); */
     return BlocProvider<ApplianceBloc>(
       create: (context) =>
-          ApplianceBloc(appliancesRepository: appliancesRepository),
-      child: Scaffold(
-        backgroundColor: Colors.white24,
-        appBar: AppBar(
-          title: Text('List of Appliance'),
-          actions: <Widget>[
-            IconButton(
-              focusColor: Colors.white,
-              onPressed: () {
-                context.read<AuthService>().signOut();
-              },
-              icon: Icon(Icons.logout_sharp),
-            ),
-          ],
-          centerTitle: true,
-        ),
-        body: AppliancesList1(),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    content: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text("Add"),
-                        Padding(
-                          padding: EdgeInsets.only(top: 10),
-                          child: Text(
-                            "Title: ",
-                            textAlign: TextAlign.start,
-                          ),
-                        ),
-                        TextField(
-                          controller: titleController,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 20),
-                          child: Text("Description: "),
-                        ),
-                        TextField(
-                          controller: descriptionController,
-                        ),
-                      ],
-                    ),
-                    actions: <Widget>[
+          ApplianceBloc(appliancesRepository: appliancesRepository), */
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('List of Appliance'),
+        actions: <Widget>[
+          IconButton(
+            focusColor: Colors.white,
+            onPressed: () {
+              context.read<AuthService>().signOut();
+            },
+            icon: Icon(Icons.logout_sharp),
+          ),
+        ],
+        centerTitle: true,
+      ),
+      body: AppliancesList(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  content: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text("Add"),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: RaisedButton(
-                          color: Colors.red,
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: Text(
-                            "Undo",
-                            style: TextStyle(color: Colors.white),
-                          ),
+                        padding: EdgeInsets.only(top: 10),
+                        child: Text(
+                          "Title: ",
+                          textAlign: TextAlign.start,
                         ),
                       ),
-
-                      //Add Button
-
-                      RaisedButton(
+                      TextField(
+                        controller: titleController,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 20),
+                        child: Text("Description: "),
+                      ),
+                      TextField(
+                        controller: descriptionController,
+                      ),
+                    ],
+                  ),
+                  actions: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: RaisedButton(
                         color: Colors.red,
                         onPressed: () {
-                          //TODO: Firestore create a new record code
-
-                          Map<String, dynamic> newList =
-                              new Map<String, dynamic>();
-                          newList["title"] = titleController.text;
-                          newList["description"] = descriptionController.text;
-
-                          FirebaseFirestore.instance
-                              .collection("aplliences")
-                              .add(newList)
-                              .whenComplete(() {
-                            Navigator.of(context).pop();
-                          });
+                          Navigator.of(context).pop();
                         },
                         child: Text(
-                          "save",
+                          "Undo",
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
-                    ],
-                  );
-                });
-          },
-          backgroundColor: Colors.red,
-          tooltip: 'Add Title',
-          child: Icon(Icons.add),
-        ),
+                    ),
 
-        /* Column(
+                    //Add Button
+
+                    RaisedButton(
+                      color: Colors.red,
+                      onPressed: () {
+                        //TODO: Firestore create a new record code
+
+                        Map<String, dynamic> newList =
+                            new Map<String, dynamic>();
+                        newList["title"] = titleController.text;
+                        newList["description"] = descriptionController.text;
+
+                        FirebaseFirestore.instance
+                            .collection("aplliences")
+                            .add(newList)
+                            .whenComplete(() {
+                          Navigator.of(context).pop();
+                        });
+                      },
+                      child: Text(
+                        "save",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ],
+                );
+              });
+        },
+        backgroundColor: Colors.red,
+        tooltip: 'Add Title',
+        child: Icon(Icons.add),
+      ),
+
+      /*  Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             ActionButtons(),
-            Expanded(child: AppliancesList1()),
+            Expanded(child: AppliancesListFireBase()),
           ],
         ), */
-      ),
     );
   }
 }

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/* import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_home/data/appliances.dart';
 import 'package:smart_home/presentatoin/bloc/appliances_state.dart';
@@ -33,3 +33,4 @@ class ApplianceBloc extends Bloc<ApplianceEvent, ApplianceState> {
     }
   }
 }
+ */
