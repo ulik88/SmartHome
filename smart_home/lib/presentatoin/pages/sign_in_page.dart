@@ -11,7 +11,7 @@ class SignInPage extends StatelessWidget {
     return Scaffold(
       body: Container(
         padding: EdgeInsets.all(26),
-        color: Colors.white,
+        color: Color(0x65D9D094),
         child: Column(
           children: [
             Padding(
@@ -20,55 +20,73 @@ class SignInPage extends StatelessWidget {
             ),
             TextField(
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 14),
+              style: TextStyle(fontSize: 18),
               controller: emailController,
               decoration: InputDecoration(
+                  fillColor: Colors.white60, filled: true,
                 prefixIcon: Icon(Icons.email),
                 hintStyle: TextStyle(color: Colors.grey),
                 labelText: "Enter your email here...",
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(14.0)),
-                  borderSide: BorderSide(color: Colors.green, width: 1),
+                  borderSide: BorderSide(color: Colors.red, width: 2),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                  borderSide: BorderSide(color: Colors.green, width: 0.5),
+                  borderSide: BorderSide(color: Colors.red, width: 2),
                 ),
               ),
             ),
+            SizedBox(
+              height: 20,
+              width: 100,
+            ),
             TextField(
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 14),
+              style: TextStyle(fontSize: 18),
               controller: passwordController,
               obscureText: true,
               autocorrect: false,
               enableSuggestions: false,
               decoration: InputDecoration(
+                fillColor: Colors.white60, filled: true,
                 prefixIcon: Icon(Icons.password),
                 hintStyle: TextStyle(color: Colors.grey),
                 labelText: "Enter your password here...",
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(14.0)),
-                  borderSide: BorderSide(color: Colors.green, width: 1),
+                  borderSide: BorderSide(color: Colors.red, width: 2),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                  borderSide: BorderSide(color: Colors.green, width: 0.5),
+                  borderSide: BorderSide(color: Colors.red, width: 2),
                 ),
               ),
             ),
-            RaisedButton(
-              textColor: Colors.white,
-              color: Colors.lightGreen,
-              padding: const EdgeInsets.all(8.0),
+            SizedBox(width: 10),
+
+            SizedBox(
+              height: 20,
+              width: 100,
+            ),
+            ElevatedButton(
+              child:
+                  Text("Sign in".toUpperCase(), style: TextStyle(fontSize: 14)),
+              style: ButtonStyle(
+                  foregroundColor:
+                      MaterialStateProperty.all<Color>(Colors.white),
+                  backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          side: BorderSide(color: Colors.red)))),
               onPressed: () {
                 context.read<AuthService>().signIn(
                       email: emailController.text.trim(),
                       password: passwordController.text.trim(),
                     );
               },
-              child: Text("Sign in"),
-            )
+            ),
           ],
         ),
       ),
