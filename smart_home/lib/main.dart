@@ -7,7 +7,6 @@ import 'package:smart_home/presentatoin/bloc/appliances_event.dart';
 import 'package:smart_home/presentatoin/pages/home_page.dart';
 import 'package:smart_home/presentatoin/widgets/action_buttons.dart';
 import 'package:smart_home/services/authentication_service.dart';
-import 'package:smart_home/splashscreen.dart';
 
 import 'presentatoin/pages/sign_in_page.dart';
 
@@ -46,25 +45,7 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.redAccent,
           splashIconSize: 250,
           splash: Icons.home,
-          duration: 3000,
-          /*Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  height: 100,
-                  width: 100,
-                  color: Colors.blueAccent,
-                ),
-                Container(
-                  child: Text(
-                    'Spash Screen',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                  ),
-                )
-              ],
-            ),
-          ),*/
+          duration: 2000,
           nextScreen: AuthenWrapper(),
         ),
 

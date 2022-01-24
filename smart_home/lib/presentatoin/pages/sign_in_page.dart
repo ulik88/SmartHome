@@ -16,7 +16,7 @@ class SignInPage extends StatelessWidget {
           children: [
             Padding(
               padding: EdgeInsets.only(
-                  left: 20.0, top: 190, right: 20.0, bottom: 20.0),
+                  left: 20.0, top: 230, right: 20.0, bottom: 20.0),
             ),
             TextField(
               textAlign: TextAlign.center,
@@ -29,16 +29,16 @@ class SignInPage extends StatelessWidget {
                 labelText: "Enter your email here...",
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(14.0)),
-                  borderSide: BorderSide(color: Colors.red, width: 2),
+                  borderSide: BorderSide(color: Color(0x65D9D094), width: 2),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                  borderSide: BorderSide(color: Colors.red, width: 2),
+                  borderSide: BorderSide(color: Color(0x65D9D094), width: 2),
                 ),
               ),
             ),
             SizedBox(
-              height: 20,
+              height: 10,
               width: 100,
             ),
             TextField(
@@ -55,18 +55,18 @@ class SignInPage extends StatelessWidget {
                 labelText: "Enter your password here...",
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(14.0)),
-                  borderSide: BorderSide(color: Colors.red, width: 2),
+                  borderSide: BorderSide(color: Color(0x65D9D094), width: 2),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                  borderSide: BorderSide(color: Colors.red, width: 2),
+                  borderSide: BorderSide(color: Color(0x65D9D094), width: 2),
                 ),
               ),
             ),
             SizedBox(width: 10),
 
             SizedBox(
-              height: 20,
+              height: 10,
               width: 100,
             ),
             ElevatedButton(
