@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,29 +10,14 @@ import 'package:smart_home/data/appliances.dart';
 import 'package:smart_home/presentatoin/widgets/appliances_list.dart';
 
 class AppliancesListFireBase extends StatelessWidget {
-  /*  List<Appliance> items = [
-    Appliance(
-      title: 'Bedroom',
-      name: '2 Devices',
-    ),
-    Appliance(
-      title: 'Living Room',
-      image: SvgPicture.asset('assets/sofa.svg'),
-      name: '7 Devices',
-    ),
-    Appliance(
-      title: 'Kitchen',
-      image: SvgPicture.asset('assets/fridge.svg'),
-      name: '5 Devices',
-    ),
-    Appliance(
-      title: 'Bedroom',
-      name: '2 Devices',
-    ),
-  ]; */
+ 
   get titleController => null;
 
   get descriptionController => null;
+
+  Future<void> _refresh() {
+    return Future.delayed(Duration(seconds: 8),);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +33,7 @@ class AppliancesListFireBase extends StatelessWidget {
             return Container(
               margin: EdgeInsets.fromLTRB(18, 20, 18, 18),
               child: StaggeredGridView.count(
-                physics: BouncingScrollPhysics(),
+                physics: AlwaysScrollableScrollPhysics(),
                 crossAxisCount: 2,
                 crossAxisSpacing: 15,
                 mainAxisSpacing: 15,
@@ -60,12 +47,22 @@ class AppliancesListFireBase extends StatelessWidget {
                   return Padding(
                     padding: EdgeInsets.symmetric(vertical: 3, horizontal: 3),
                     child: Card(
-                      child: ListTile(
+                      color: Colors.green[300],
+                      child: RefreshIndicator(
+                        edgeOffset: 0, 
+                        displacement: 200, 
+                        strokeWidth: 5, 
+                        color: Colors.yellow, 
+                        backgroundColor: Colors.red, 
+                        onRefresh: _refresh,
+                        child: ListTile(
+      
                         onTap: () {
                           showDialog(
                               context: context,
                               builder: (BuildContext context) {
                                 return AlertDialog(
+                                  backgroundColor: Colors.green,
                                   title: Text("Update Dilaog"),
                                   content: Column(
                                     crossAxisAlignment:
@@ -96,7 +93,7 @@ class AppliancesListFireBase extends StatelessWidget {
                                   actions: <Widget>[
                                     Padding(
                                       padding:
-                                          EdgeInsets.symmetric(horizontal: 10),
+                                          EdgeInsets.symmetric(horizontal: 20),
                                       child: RaisedButton(
                                         color: Colors.red,
                                         onPressed: () {
@@ -166,15 +163,22 @@ class AppliancesListFireBase extends StatelessWidget {
                         ),
                       ),
                     ),
+                    ),
                   );
                 }).toList(),
               ),
             );
         }
-        return Center(
-          child: CircularProgressIndicator(),
-        );
       },
     );
   }
 }
+
+/* RefreshIndicator(
+                        edgeOffset: 0, 
+                        displacement: 200, 
+                        strokeWidth: 5, 
+                        color: Colors.yellow, 
+                        backgroundColor: Colors.red, 
+                        onRefresh: _refresh,);
+         */

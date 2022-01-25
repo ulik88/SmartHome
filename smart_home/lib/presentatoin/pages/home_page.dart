@@ -15,8 +15,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  TextEditingController titleController = new TextEditingController();
-  TextEditingController descriptionController = new TextEditingController();
+  
 
   @override
   Widget build(BuildContext context) {
@@ -39,82 +38,7 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
       ),
       body: AppliancesList(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  content: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text("Add"),
-                      Padding(
-                        padding: EdgeInsets.only(top: 10),
-                        child: Text(
-                          "Title: ",
-                          textAlign: TextAlign.start,
-                        ),
-                      ),
-                      TextField(
-                        controller: titleController,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 20),
-                        child: Text("Description: "),
-                      ),
-                      TextField(
-                        controller: descriptionController,
-                      ),
-                    ],
-                  ),
-                  actions: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      child: RaisedButton(
-                        color: Colors.red,
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Text(
-                          "Undo",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ),
-
-                    //Add Button
-
-                    RaisedButton(
-                      color: Colors.red,
-                      onPressed: () {
-                        //TODO: Firestore create a new record code
-
-                        Map<String, dynamic> newList =
-                            new Map<String, dynamic>();
-                        newList["title"] = titleController.text;
-                        newList["description"] = descriptionController.text;
-
-                        FirebaseFirestore.instance
-                            .collection("aplliences")
-                            .add(newList)
-                            .whenComplete(() {
-                          Navigator.of(context).pop();
-                        });
-                      },
-                      child: Text(
-                        "save",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ],
-                );
-              });
-        },
-        backgroundColor: Colors.red,
-        tooltip: 'Add Title',
-        child: Icon(Icons.add),
-      ),
+      
 
       /*  Column(
           crossAxisAlignment: CrossAxisAlignment.center,

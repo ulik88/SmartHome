@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_home/presentatoin/bloc/appliances_bloc.dart';
@@ -7,19 +8,26 @@ import 'package:smart_home/presentatoin/pages/details_page.dart';
 import 'package:smart_home/services/appliences_list_firebase.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class AppliancesList extends StatelessWidget {
+class AppliancesList extends StatefulWidget {
+  @override
+  _AppliancesListState createState() => _AppliancesListState();
+}
+
+class _AppliancesListState extends State<AppliancesList> {
+  TextEditingController titleController = new TextEditingController();
+  TextEditingController descriptionController = new TextEditingController();
   @override
   Widget build(BuildContext context) {
     ColorBloc _bloc = BlocProvider.of<ColorBloc>(context);
     return Scaffold(
       backgroundColor: Color(0xff202227),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
-            padding: EdgeInsets.only(top: 35, left: 25),
+            padding: EdgeInsets.only(top: 25, left: 25),
             child: Text(
-              'Sweet Home 🖐🏻',
+              'My Home ',
               style: TextStyle(
                 fontFamily: 'SF Rounded',
                 fontSize: 32,
@@ -47,7 +55,7 @@ class AppliancesList extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
-                            '11,5',
+                            '18,05',
                             style: TextStyle(
                               fontFamily: 'SF Rounded',
                               fontSize: 54,
@@ -113,7 +121,7 @@ class AppliancesList extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Example Name',
+                        'Name, Vorname',
                         style: TextStyle(
                           fontFamily: 'SF Rounded',
                           fontSize: 18,
@@ -153,7 +161,7 @@ class AppliancesList extends StatelessWidget {
                   ),
                   child: Center(
                     child: Text(
-                      'OWNER',
+                      'Besitzer',
                       style: TextStyle(
                         fontFamily: 'SF Rounded',
                         fontWeight: FontWeight.bold,
@@ -175,67 +183,31 @@ class AppliancesList extends StatelessWidget {
         ],
         //
       ),
-      floatingActionButton: Transform.scale(
-        scale: 1,
-        child: Transform.translate(
-          offset: Offset(0, 18),
-          child: GestureDetector(
-            onTap: () {
-              print('FAB tapped');
-            },
-            child: Container(
-              width: 70,
-              height: 70,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment(0.5, 0),
-                  end: Alignment(0.5, 1),
-                  colors: [Color(0xff7afc79), Color(0xff3ccb97)],
-                ),
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                    offset: Offset(0, 0),
-                    blurRadius: 18,
-                    color: Color(0xff7afc79).withOpacity(0.26),
-                  )
-                ],
-              ),
-              child: SvgPicture.asset(
-                'assets/spark.svg',
-                fit: BoxFit.scaleDown,
-              ),
-            ),
-          ),
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      //
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(bottom: 18.0),
+        padding: const EdgeInsets.only(bottom: 5.0),
         child: ClipPath(
           /* clipper: NavbarClipper(), */
           child: BottomAppBar(
             elevation: 0,
-            color: Color(0xff3f4144).withOpacity(0.31),
+            color: Color(0xff3f4155).withOpacity(0.35),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 IconButton(
                     icon: Icon(
                       Icons.person_pin,
-                      color: Colors.white.withOpacity(0.1),
+                      color: Colors.white.withOpacity(0.5),
                       size: 30,
                     ),
                     onPressed: null),
                 IconButton(
                     icon: Icon(
                       Icons.notifications,
-                      color: Colors.white.withOpacity(0.1),
+                      color: Colors.white.withOpacity(0.5),
                       size: 30,
                     ),
                     onPressed: null),
-                //
+                
                 SizedBox(
                   height: 80,
                   width: 60,
@@ -243,14 +215,14 @@ class AppliancesList extends StatelessWidget {
                 IconButton(
                     icon: Icon(
                       Icons.message,
-                      color: Colors.white.withOpacity(0.1),
+                      color: Colors.white.withOpacity(0.5),
                       size: 30,
                     ),
                     onPressed: null),
                 IconButton(
                     icon: Icon(
                       Icons.settings,
-                      color: Colors.white.withOpacity(0.1),
+                      color: Colors.white.withOpacity(0.5),
                       size: 30,
                     ),
                     onPressed: null),
@@ -259,7 +231,94 @@ class AppliancesList extends StatelessWidget {
           ),
         ),
       ),
-    );
+
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  content: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text("Add"),
+                      Padding(
+                        padding: EdgeInsets.only(top: 10),
+                        child: Text(
+                          "Title: ",
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                      TextField(
+                        controller: titleController,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 20),
+                        child: Text("Description: "),
+                      ),
+                      TextField(
+                        controller: descriptionController,
+                      ),
+                    ],
+                  ),
+                  actions: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: RaisedButton(
+                        color: Colors.red,
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text(
+                          "Undo",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+
+                    //Add Button
+
+                    RaisedButton(
+                      color: Colors.red,
+                      onPressed: () {
+                        //TODO: Firestore create a new record code
+
+                        Map<String, dynamic> newList =
+                            new Map<String, dynamic>();
+                        newList["title"] = titleController.text;
+                        newList["description"] = descriptionController.text;
+
+                        FirebaseFirestore.instance
+                            .collection("aplliences")
+                            .add(newList)
+                            .whenComplete(() {
+                          Navigator.of(context).pop();
+                        });
+                      },
+                      child: Text(
+                        "save",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ],
+                );
+              });
+        },
+        backgroundColor: Color(0xff7afc79).withOpacity(0.26),
+        
+
+        tooltip: 'Add Title',
+        child: Icon (Icons.storm_rounded),
+       
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        
+        );
+
+
+     // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      //
+      
 
     /* BlocBuilder<ApplianceBloc, ApplianceState>(
         builder: (context, state) {
