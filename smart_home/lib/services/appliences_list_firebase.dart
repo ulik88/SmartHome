@@ -1,22 +1,17 @@
-import 'dart:ffi';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:smart_home/data/appliances.dart';
-import 'package:smart_home/presentatoin/widgets/appliances_list.dart';
 
 class AppliancesListFireBase extends StatelessWidget {
- 
-  get titleController => null;
-
-  get descriptionController => null;
+  TextEditingController titleController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
 
   Future<void> _refresh() {
-    return Future.delayed(Duration(seconds: 8),);
+    return Future.delayed(
+      Duration(seconds: 8),
+    );
   }
 
   @override
@@ -42,127 +37,123 @@ class AppliancesListFireBase extends StatelessWidget {
                   StaggeredTile.extent(1, 210),
                   StaggeredTile.extent(1, 210),
                   StaggeredTile.extent(1, 150),
+                  StaggeredTile.extent(1, 150),
+                  StaggeredTile.extent(1, 210),
+                  StaggeredTile.extent(1, 210),
+                  StaggeredTile.extent(1, 150),
                 ],
-                children: snapshot.data.docs.map((DocumentSnapshot document) {
+                children: snapshot.data!.docs.map((DocumentSnapshot document) {
                   return Padding(
                     padding: EdgeInsets.symmetric(vertical: 3, horizontal: 3),
                     child: Card(
                       color: Colors.green[300],
                       child: RefreshIndicator(
-                        edgeOffset: 0, 
-                        displacement: 200, 
-                        strokeWidth: 5, 
-                        color: Colors.yellow, 
-                        backgroundColor: Colors.red, 
+                        edgeOffset: 0,
+                        displacement: 200,
+                        strokeWidth: 5,
+                        color: Colors.yellow,
+                        backgroundColor: Colors.red,
                         onRefresh: _refresh,
                         child: ListTile(
-      
-                        onTap: () {
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  backgroundColor: Colors.green,
-                                  title: Text("Update Dilaog"),
-                                  content: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Text(
-                                        "Title:\t ",
-                                        textAlign: TextAlign.start,
-                                      ),
-                                      TextField(
-                                        controller: titleController,
-                                        decoration: InputDecoration(
-                                          hintText: document['title'],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(top: 20),
-                                        child: Text("Description:\t "),
-                                      ),
-                                      TextField(
-                                        controller: descriptionController,
-                                        decoration: InputDecoration(
-                                          hintText: document['description'],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  actions: <Widget>[
-                                    Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 20),
-                                      child: RaisedButton(
-                                        color: Colors.red,
-                                        onPressed: () {
-                                          Navigator.of(context)
-                                              .userGestureInProgressNotifier
-                                              .addListener(() {
-                                            AppliancesListFireBase();
-                                          });
-                                        },
-                                        child: Text(
-                                          "Undo",
-                                          style: TextStyle(color: Colors.white),
-                                        ),
-                                      ),
-                                    ),
-                                    // Update Button
-
-                                    RaisedButton(onPressed: () {
-                                      Map<String, dynamic> updateUser =
-                                          Map<String, dynamic>();
-                                      updateUser["title"] =
-                                          titleController.text;
-                                      updateUser["description"] =
-                                          descriptionController.text;
-
-                                      // Updae Firestore record information regular way
-                                      FirebaseFirestore.instance
-                                          .collection("aplliences")
-                                          .doc(document.id)
-                                          .update(updateUser)
-                                          .whenComplete(() {
-                                        Navigator.of(context).pop();
-                                      });
-
-                                      Text(
-                                        "update",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            backgroundColor: Colors.red),
-                                      );
-                                    })
-                                  ],
-                                );
-                              });
-                        },
-                        title: Text("Title " + document['title']),
-                        subtitle:
-                            Text("Description " + document['description']),
-                        trailing:
-                            // Delete Button
-                            InkWell(
                           onTap: () {
-                            //TODO: Firestore delete a record code
-                            FirebaseFirestore.instance
-                                .collection("aplliences")
-                                .doc(document.id)
-                                .delete()
-                                .catchError((e) {
-                              print(e);
-                            });
+                            showDialog<ListTile>(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    backgroundColor: Colors.green,
+                                    title: Text("Update Dilaog"),
+                                    content: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Text(
+                                          "Title:\t ",
+                                          textAlign: TextAlign.start,
+                                        ),
+                                        TextField(
+                                          controller: titleController,
+                                          decoration: InputDecoration(),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(top: 20),
+                                          child: Text("Description:\t "),
+                                        ),
+                                        TextField(
+                                          controller: descriptionController,
+                                          decoration: InputDecoration(),
+                                        ),
+                                      ],
+                                    ),
+                                    actions: <Widget>[
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 45),
+                                        child: RaisedButton(
+                                          color: Colors.red,
+                                          onPressed: () {
+                                            Navigator.of(context)
+                                                .userGestureInProgressNotifier
+                                                .addListener(() {
+                                              AppliancesListFireBase();
+                                            });
+                                          },
+                                          child: Text(
+                                            "Undo",
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                        ),
+                                      ),
+                                      // Update Button
+
+                                      RaisedButton(
+                                          child: Text(
+                                            "update",
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                          color: Colors.red,
+                                          onPressed: () {
+                                            Map<String, dynamic> updateUser =
+                                                Map<String, dynamic>();
+                                            updateUser["title"] =
+                                                titleController.text;
+                                            updateUser["description"] =
+                                                descriptionController.text;
+
+                                            // Updae Firestore record information regular way
+                                            FirebaseFirestore.instance
+                                                .collection("aplliences")
+                                                .doc(document.id)
+                                                .update(updateUser)
+                                                .whenComplete(() {
+                                              Navigator.of(context).pop();
+                                            });
+                                          })
+                                    ],
+                                  );
+                                });
                           },
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 10),
-                            child: Icon(Icons.delete, color: Colors.red),
+                          title: Text('Title'),
+                          subtitle: Text('Description'),
+                          trailing:
+                              // Delete Button
+                              InkWell(
+                            onTap: () {
+                              //TODO: Firestore delete a record code
+                              FirebaseFirestore.instance
+                                  .collection("aplliences")
+                                  .doc(document.id)
+                                  .delete();
+                            },
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 10),
+                              child: Icon(Icons.delete, color: Colors.red),
+                            ),
                           ),
                         ),
                       ),
-                    ),
                     ),
                   );
                 }).toList(),
@@ -173,12 +164,3 @@ class AppliancesListFireBase extends StatelessWidget {
     );
   }
 }
-
-/* RefreshIndicator(
-                        edgeOffset: 0, 
-                        displacement: 200, 
-                        strokeWidth: 5, 
-                        color: Colors.yellow, 
-                        backgroundColor: Colors.red, 
-                        onRefresh: _refresh,);
-         */

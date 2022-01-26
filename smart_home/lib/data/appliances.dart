@@ -1,19 +1,18 @@
 import 'dart:core';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class Appliance extends StatefulWidget {
-  int id;
-  SvgPicture image;
+  int? id;
+  SvgPicture? image;
   String name;
   String title;
-  bool status;
-  double height;
-  double width;
+  bool? status;
+  double? height;
+  double? width;
 
-  Appliance({this.title, this.name, this.image});
+  Appliance({required this.title, required this.name, required this.image});
 
   @override
   _ApplianceState createState() => _ApplianceState();
@@ -21,6 +20,7 @@ class Appliance extends StatefulWidget {
 
 class _ApplianceState extends State<Appliance> {
   bool isSelected = false;
+
   @override
   Widget build(BuildContext context) {
     //
