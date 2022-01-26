@@ -23,7 +23,8 @@ class SignInPage extends StatelessWidget {
               style: TextStyle(fontSize: 18),
               controller: emailController,
               decoration: InputDecoration(
-                  fillColor: Colors.white60, filled: true,
+                fillColor: Colors.white60,
+                filled: true,
                 prefixIcon: Icon(Icons.email),
                 hintStyle: TextStyle(color: Colors.grey),
                 labelText: "Enter your email here...",
@@ -49,7 +50,8 @@ class SignInPage extends StatelessWidget {
               autocorrect: false,
               enableSuggestions: false,
               decoration: InputDecoration(
-                fillColor: Colors.white60, filled: true,
+                fillColor: Colors.white60,
+                filled: true,
                 prefixIcon: Icon(Icons.password),
                 hintStyle: TextStyle(color: Colors.grey),
                 labelText: "Enter your password here...",
@@ -64,7 +66,6 @@ class SignInPage extends StatelessWidget {
               ),
             ),
             SizedBox(width: 10),
-
             SizedBox(
               height: 10,
               width: 100,

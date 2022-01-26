@@ -1,25 +1,40 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:smart_home/presentatoin/bloc/appliances_bloc.dart';
-import 'package:smart_home/presentatoin/bloc/appliances_event.dart';
-import 'package:smart_home/presentatoin/bloc/appliances_state.dart';
-import 'package:smart_home/presentatoin/pages/details_page.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
+import 'package:smart_home/presentatoin/pages/personal.dart';
 import 'package:smart_home/services/appliences_list_firebase.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class AppliancesList extends StatelessWidget {
+class AppliancesList extends StatefulWidget {
+  const AppliancesList({Key? key}) : super(key: key);
+
+  @override
+  _AppliancesListState createState() => _AppliancesListState();
+}
+
+void _updateAppbar() {
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+}
+
+class _AppliancesListState extends State<AppliancesList> {
+  @override
+  void initState() {
+    _updateAppbar();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    ColorBloc _bloc = BlocProvider.of<ColorBloc>(context);
     return Scaffold(
       backgroundColor: Color(0xff202227),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
-            padding: EdgeInsets.only(top: 35, left: 25),
+            padding: EdgeInsets.only(top: 25, left: 25),
             child: Text(
-              'Sweet Home 🖐🏻',
+              'My Home ',
               style: TextStyle(
                 fontFamily: 'SF Rounded',
                 fontSize: 32,
@@ -47,7 +62,7 @@ class AppliancesList extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
-                            '11,5',
+                            '18,05',
                             style: TextStyle(
                               fontFamily: 'SF Rounded',
                               fontSize: 54,
@@ -113,7 +128,7 @@ class AppliancesList extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Example Name',
+                        'Name, Vorname',
                         style: TextStyle(
                           fontFamily: 'SF Rounded',
                           fontSize: 18,
@@ -149,25 +164,24 @@ class AppliancesList extends StatelessWidget {
                       end: Alignment(0.97, 0.84),
                       colors: [Color(0xff79fd7b), Color(0xff3dcd98)],
                     ),
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(5),
                   ),
-                  child: Center(
-                    child: Text(
-                      'OWNER',
-                      style: TextStyle(
-                        fontFamily: 'SF Rounded',
-                        fontWeight: FontWeight.bold,
-                        fontSize: 10,
-                        color: Colors.black.withOpacity(0.72),
-                      ),
-                    ),
+                  child: TextButton(
+                    child: Text('Owner',
+                        style: TextStyle(fontSize: 12, color: Colors.black)),
+                    onPressed: () => Navigator.of(context)
+                        .push(MaterialPageRoute<void>(
+                            builder: (BuildContext context) => Personal()))
+                        .whenComplete(
+                          () =>
+                              Future<void>.delayed(Duration(milliseconds: 500))
+                                  .then((_) => _updateAppbar()),
+                        ),
                   ),
-                )
+                ),
               ],
             ),
           ),
-
-          //
           Expanded(
             child: AppliancesListFireBase(),
           ),
@@ -175,184 +189,7 @@ class AppliancesList extends StatelessWidget {
         ],
         //
       ),
-      floatingActionButton: Transform.scale(
-        scale: 1,
-        child: Transform.translate(
-          offset: Offset(0, 18),
-          child: GestureDetector(
-            onTap: () {
-              print('FAB tapped');
-            },
-            child: Container(
-              width: 70,
-              height: 70,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment(0.5, 0),
-                  end: Alignment(0.5, 1),
-                  colors: [Color(0xff7afc79), Color(0xff3ccb97)],
-                ),
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                    offset: Offset(0, 0),
-                    blurRadius: 18,
-                    color: Color(0xff7afc79).withOpacity(0.26),
-                  )
-                ],
-              ),
-              child: SvgPicture.asset(
-                'assets/spark.svg',
-                fit: BoxFit.scaleDown,
-              ),
-            ),
-          ),
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      //
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(bottom: 18.0),
-        child: ClipPath(
-          /* clipper: NavbarClipper(), */
-          child: BottomAppBar(
-            elevation: 0,
-            color: Color(0xff3f4144).withOpacity(0.31),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                IconButton(
-                    icon: Icon(
-                      Icons.person_pin,
-                      color: Colors.white.withOpacity(0.1),
-                      size: 30,
-                    ),
-                    onPressed: null),
-                IconButton(
-                    icon: Icon(
-                      Icons.notifications,
-                      color: Colors.white.withOpacity(0.1),
-                      size: 30,
-                    ),
-                    onPressed: null),
-                //
-                SizedBox(
-                  height: 80,
-                  width: 60,
-                ),
-                IconButton(
-                    icon: Icon(
-                      Icons.message,
-                      color: Colors.white.withOpacity(0.1),
-                      size: 30,
-                    ),
-                    onPressed: null),
-                IconButton(
-                    icon: Icon(
-                      Icons.settings,
-                      color: Colors.white.withOpacity(0.1),
-                      size: 30,
-                    ),
-                    onPressed: null),
-              ],
-            ),
-          ),
-        ),
-      ),
+      // bottomNavigationBar: BottomNavButtons(),
     );
-
-    /* BlocBuilder<ApplianceBloc, ApplianceState>(
-        builder: (context, state) {
-      if (state is ApplianceEmptyState) {
-        return Center(
-          child: Text(
-            'No Data recieved, press button "Load"',
-          ),
-        );
-      }
-      if (state is ApplianceLoadingState) {
-        return Center(
-          child: CircularProgressIndicator(),
-        );
-      }
-
-      if (state is ApplianceLoadedState) {
-        return GridView.custom(
-          padding: EdgeInsets.all(10.0),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: (2 / 1),
-            crossAxisSpacing: 5,
-            mainAxisSpacing: 5,
-          ),
-          childrenDelegate: SliverChildListDelegate(
-            state.loadedAppliance
-                .map(
-                  (data) => GestureDetector(
-                      onTap: () {
-                        if (_bloc == ColorEvent) {
-                          return _bloc.add(ColorEvent.event_red);
-                        } else {
-                          _bloc.add(ColorEvent.event_green);
-                        }
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => AppliancesListFireBase(),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.all(16),
-                        color: Colors.green,
-                        child: ListTile(
-                          leading: Text(
-                            'ID: ${state.loadedAppliance}',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          title: Column(
-                            children: <Widget>[
-                              BlocBuilder<ColorBloc, Color>(
-                                builder: (context, currentColor) =>
-                                    AnimatedContainer(
-                                        height: 40,
-                                        width: 40,
-                                        duration: Duration(milliseconds: 300),
-                                        color: currentColor),
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  Text(
-                                    'Title: ${state.loadedAppliance}.',
-                                    style:
-                                        TextStyle(fontStyle: FontStyle.italic),
-                                  ),
-                                  Text(
-                                    'Completed: ${state.loadedAppliance.length}',
-                                    style:
-                                        TextStyle(fontStyle: FontStyle.italic),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                      )),
-                )
-                .toList(),
-          ),
-        );
-      }
-      if (state is ApplianceErrorState) {
-        return Center(
-          child: Text(
-            'Error fetching ',
-            style: TextStyle(fontSize: 20.0),
-          ),
-        );
-      }
-      return CircularProgressIndicator();
-    }); */
   }
 }

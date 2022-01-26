@@ -3,12 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_home/presentatoin/bloc/appliances_event.dart';
-import 'package:smart_home/presentatoin/pages/home_page.dart';
-import 'package:smart_home/presentatoin/widgets/action_buttons.dart';
+import 'package:smart_home/services/auth_warpper.dart';
 import 'package:smart_home/services/authentication_service.dart';
-
-import 'presentatoin/pages/sign_in_page.dart';
+import 'package:smart_home/theme/app_colors.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,54 +14,41 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        Provider<ColorBloc>(
-          create: (context) => ColorBloc(null),
-          child: ActionButtons(),
-        ),
-        Provider<AuthService>(
-          create: (_) => AuthService(FirebaseAuth.instance),
-        ),
-        StreamProvider(
-          create: (context) => context.read<AuthService>().authState,
-          initialData: null,
-        ),
-      ],
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.green,
-          /*  backgroundColor: Colors.greenAccent[400], */
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
-        home: AnimatedSplashScreen(
-          backgroundColor: Colors.redAccent,
-          splashIconSize: 250,
-          splash: Icons.home,
-          duration: 2000,
-          nextScreen: AuthenWrapper(),
-        ),
+    return Provider<AuthService>(
+      create: (_) => AuthService(FirebaseAuth.instance),
+      child: StreamProvider(
+        create: (context) => context.read<AuthService>().authState,
+        initialData: null,
+        child: MaterialApp(
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            appBarTheme: AppBarTheme(backgroundColor: AppColors.mainDarkBlue),
+            bottomNavigationBarTheme: BottomNavigationBarThemeData(
+              backgroundColor: AppColors.mainDarkBlue,
+              selectedItemColor: Colors.white,
+              unselectedItemColor: Colors.grey,
+            ),
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+          ),
+          home: AnimatedSplashScreen(
+            backgroundColor: AppColors.splashColor,
+            splashIconSize: 250,
+            splash: Icons.home,
+            duration: 2000,
+            nextScreen: AuthenWrapper(),
+          ),
+          //routes: {
+          //'/splash_screen': (context) => AuthenWrapper(),
+          //'/auth': (context) => SignInPage(),
+          //'/main_screen': (context) => HomePage(),
+          //},
+          //initialRoute: '/auth',
 
-        //----> AuthenWrapper(),
+          //----> AuthenWrapper(),
+        ),
       ),
     );
-  }
-}
-
-class AuthenWrapper extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final firebaseUser = context.watch<User>();
-
-    if (firebaseUser != null) {
-      print(firebaseUser.email);
-
-      return HomePage();
-    }
-    return SignInPage();
   }
 }
