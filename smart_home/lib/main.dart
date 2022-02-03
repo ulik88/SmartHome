@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:smart_home/presentatoin/pages/home_page.dart';
+import 'package:smart_home/presentatoin/pages/sign_in_page.dart';
 import 'package:smart_home/services/auth_warpper.dart';
 import 'package:smart_home/services/authentication_service.dart';
 import 'package:smart_home/theme/app_colors.dart';
@@ -39,13 +41,11 @@ class MyApp extends StatelessWidget {
             duration: 2000,
             nextScreen: AuthenWrapper(),
           ),
-          //routes: {
-          //'/splash_screen': (context) => AuthenWrapper(),
-          //'/auth': (context) => SignInPage(),
-          //'/main_screen': (context) => HomePage(),
-          //},
-          //initialRoute: '/auth',
-
+          routes: {
+          '/pages/sign_in_page': (context) => SignInPage(),
+          '/pages/home_page': (context) => HomePage(),
+          },
+          initialRoute: '/',
           //----> AuthenWrapper(),
         ),
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:smart_home/presentatoin/widgets/appliances_list.dart';
 import 'package:smart_home/presentatoin/widgets/bottom_nav_buttons.dart';
 import 'package:smart_home/services/authentication_service.dart';
 
@@ -13,7 +14,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('List of Appliance'),
+        title: Text('Smart Home'),
         actions: <Widget>[
           IconButton(
             focusColor: Colors.white,
@@ -23,9 +24,9 @@ class _HomePageState extends State<HomePage> {
             icon: Icon(Icons.logout_sharp),
           ),
         ],
-        centerTitle: true,
       ),
-      body: BottomNavButtons(),
+      body:  BottomNavButtons(),
+
     );
   }
 }

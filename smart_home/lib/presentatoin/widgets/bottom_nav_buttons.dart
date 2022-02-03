@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:smart_home/presentatoin/pages/notifications.dart';
+import 'package:smart_home/presentatoin/pages/settings.dart';
 import 'package:smart_home/presentatoin/pages/personal.dart';
 import 'package:smart_home/presentatoin/widgets/appliances_list.dart';
+
+import 'floating_action_button.dart';
 
 class BottomNavButtons extends StatefulWidget {
   @override
@@ -13,7 +15,7 @@ class _BottomNavButtonsState extends State<BottomNavButtons> {
   static const List<Widget> _widgetOptions = <Widget>[
     Notifications(),
     AppliancesList(),
-    Personal(),
+    //Personal(),
   ];
 
   TextEditingController titleController = new TextEditingController();
@@ -32,92 +34,27 @@ class _BottomNavButtonsState extends State<BottomNavButtons> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(child: _widgetOptions[_selectedTab]),
+      floatingActionButton: FloatingButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomNavigationBar(
-        //selectedFontSize: 20,
+        selectedFontSize: 15,
         currentIndex: _selectedTab,
         items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.notifications),
-            label: 'Notification',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Add',
-          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
             label: 'Settings',
           ),
-        ],
+
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+
+          ],
         onTap: onSelectTab,
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showDialog<FloatingActionButton>(
-            context: context,
-            builder: (_) => AlertDialog(
-              content: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Text("Add"),
-                  Padding(
-                    padding: EdgeInsets.only(top: 10),
-                    child: Text(
-                      "Title: ",
-                      textAlign: TextAlign.start,
-                    ),
-                  ),
-                  TextField(
-                    controller: titleController,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 20),
-                    child: Text('Description: '),
-                  ),
-                  TextField(
-                    controller: descriptionController,
-                  ),
-                ],
-              ),
-              actions: <Widget>[
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: RaisedButton(
-                    color: Colors.red,
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Text(
-                      "Undo",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ),
-                RaisedButton(
-                  color: Colors.red,
-                  onPressed: () {
-                    Map<String, dynamic> newList = new Map<String, dynamic>();
-                    newList["title"] = titleController.text;
-                    newList["description"] = descriptionController.text;
 
-                    FirebaseFirestore.instance
-                        .collection("aplliences")
-                        .add(newList)
-                        .whenComplete(() {
-                      Navigator.of(context).pop();
-                    });
-                  },
-                  child: Text(
-                    "save",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ],
-            ),
-          );
-        },
-      ),
-      /* child:     BottomAppBar()*/
+     /* child: BottomAppBar();*/
     );
   }
 }

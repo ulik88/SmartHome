@@ -24,7 +24,7 @@ class _ApplianceState extends State<Appliance> {
   @override
   Widget build(BuildContext context) {
     //
-    bool svgProvided = widget.image == null ? false : true;
+    var svgProvided = widget.image == null ? false : true;
     print('is svg provided: $svgProvided'); //log
 
     return GestureDetector(
@@ -45,7 +45,7 @@ class _ApplianceState extends State<Appliance> {
                   gradient: RadialGradient(
                     colors: [
                       Color(0xff5fe686).withOpacity(0.26),
-                      Color(0xff262d2e).withOpacity(0.23)
+                    //  Color(0xff262d2e).withOpacity(0.23)
                     ],
                     radius: 0.72,
                     center: Alignment(0, 0),
