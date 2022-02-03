@@ -10,5 +10,5 @@ class AppImages {
   static const String rooter = 'images/rooter.png';
   static const String profilePic = 'images/profile_pic.png';
   static const String pngwingCom = 'images/pngwing.com.png';
-  static const String microvelle = 'images/microvelle.png';
+  static const String microvelle = 'images/placeholder.png';
 }
