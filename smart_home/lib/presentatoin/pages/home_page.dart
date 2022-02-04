@@ -25,8 +25,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body:  BottomNavButtons(),
-
+      body: BottomNavButtons(),
     );
   }
 }

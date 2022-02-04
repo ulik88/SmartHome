@@ -13,8 +13,9 @@ class BottomNavButtons extends StatefulWidget {
 
 class _BottomNavButtonsState extends State<BottomNavButtons> {
   static const List<Widget> _widgetOptions = <Widget>[
-    Notifications(),
     AppliancesList(),
+    Notifications(),
+
     //Personal(),
   ];
 
@@ -41,20 +42,18 @@ class _BottomNavButtonsState extends State<BottomNavButtons> {
         currentIndex: _selectedTab,
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-          ),
-
-          BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
           ),
-
-          ],
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Settings',
+          ),
+        ],
         onTap: onSelectTab,
       ),
 
-     /* child: BottomAppBar();*/
+      /* child: BottomAppBar();*/
     );
   }
 }

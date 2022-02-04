@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
         create: (context) => context.read<AuthService>().authState,
         initialData: null,
         child: MaterialApp(
+          debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
           theme: ThemeData(
             appBarTheme: AppBarTheme(backgroundColor: AppColors.mainDarkBlue),
@@ -42,8 +43,8 @@ class MyApp extends StatelessWidget {
             nextScreen: AuthenWrapper(),
           ),
           routes: {
-          '/pages/sign_in_page': (context) => SignInPage(),
-          '/pages/home_page': (context) => HomePage(),
+            '/pages/sign_in_page': (context) => SignInPage(),
+            '/pages/home_page': (context) => HomePage(),
           },
           initialRoute: '/',
           //----> AuthenWrapper(),

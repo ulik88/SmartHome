@@ -8,7 +8,6 @@ class AppImages {
   static const String lightning = 'images/lightning.png';
   static const String placeholder = 'images/placeholder.png';
   static const String rooter = 'images/rooter.png';
-  static const String profilePic = 'images/profile_pic.png';
   static const String pngwingCom = 'images/pngwing.com.png';
-  static const String microvelle = 'images/placeholder.png';
+  static const String microvelle = 'images/microvelle.png';
 }

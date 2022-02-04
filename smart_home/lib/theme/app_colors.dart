@@ -9,6 +9,6 @@ abstract class AppColors {
   static const cardColor = Color.fromRGBO(100, 199, 132, 1.0);
   static const backgroundColor = Color(0xff202227);
 
- // [Color(0xff79fd7b), Color(0xff3dcd98)],
+// [Color(0xff79fd7b), Color(0xff3dcd98)],
 
 }

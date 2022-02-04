@@ -68,7 +68,6 @@ class _AppliancesListState extends State<AppliancesList> {
                       width: 50,
                       height: 50),
                 ),
-
                 Container(
                   padding: EdgeInsets.only(left: 20),
                   child: Column(
@@ -136,7 +135,7 @@ class _AppliancesListState extends State<AppliancesList> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15.0),
                   child: Image(
-                  image: AssetImage(AppImages.rooter),
+                      image: AssetImage(AppImages.rooter),
                       width: 50,
                       height: 50),
                 ),
@@ -146,7 +145,7 @@ class _AppliancesListState extends State<AppliancesList> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Name, Vorname',
+                        'Name, Location',
                         style: TextStyle(
                           fontFamily: 'SF Rounded',
                           fontSize: 18,
@@ -186,22 +185,23 @@ class _AppliancesListState extends State<AppliancesList> {
                   ),
                   child: TextButton(
                     child: Text('Owner',
-                       style: TextStyle(fontSize: 13, color: Colors.black54, fontWeight: FontWeight.bold)),
+                        style: TextStyle(
+                            fontSize: 13,
+                            color: Colors.black54,
+                            fontWeight: FontWeight.bold)),
 
-                    // eigenes void _navigatorTop() funktion erstellt
+                    //  void _navigatorTop() funktion erstellt
                     onPressed: () => _navigatorTop(),
                   ),
                 ),
               ],
             ),
           ),
-
-
-              Expanded(
-                child: AppliancesListFireBase(),
-              ),
-            ],
+          Expanded(
+            child: AppliancesListFireBase(),
           ),
+        ],
+      ),
     );
   }
 }

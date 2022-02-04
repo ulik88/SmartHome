@@ -36,7 +36,6 @@ class _PersonalState extends State<Personal> {
           ),
         ),
       ),
-
     );
   }
 }
