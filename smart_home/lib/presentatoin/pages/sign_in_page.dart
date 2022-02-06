@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_home/services/authentication_service.dart';
+import 'package:smart_home/theme/app_colors.dart';
 
 class SignInPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
@@ -11,7 +12,7 @@ class SignInPage extends StatelessWidget {
     return Scaffold(
       body: Container(
         padding: EdgeInsets.all(26),
-        color: Color(0x65D9D094),
+        color: Color(0x6541744F),
         child: Column(
           children: [
             Padding(
@@ -87,6 +88,21 @@ class SignInPage extends StatelessWidget {
                       password: passwordController.text.trim(),
                     );
               },
+            ),
+            Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: Text("Forgot Password? 'or' Ceate a new Account",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 16,color: AppColors.splashColor)
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 40),
+              child: Text("To be able to use the functions of the app, register or log in to the app!",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 16,color: Colors.black54)
+              ),
             ),
           ],
         ),

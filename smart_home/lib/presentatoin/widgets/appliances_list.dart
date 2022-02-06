@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:smart_home/presentatoin/pages/personal.dart';
+import 'package:smart_home/resources/resources.dart';
 import 'package:smart_home/services/appliences_list_firebase.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:smart_home/theme/app_colors.dart';
 
 class AppliancesList extends StatefulWidget {
   const AppliancesList({Key? key}) : super(key: key);
@@ -13,11 +15,21 @@ class AppliancesList extends StatefulWidget {
   _AppliancesListState createState() => _AppliancesListState();
 }
 
-void _updateAppbar() {
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
-}
-
 class _AppliancesListState extends State<AppliancesList> {
+  void _updateAppbar() {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+  }
+
+  void _navigatorTop() {
+    Navigator.of(context)
+        .push(MaterialPageRoute<void>(
+            builder: (BuildContext context) => Personal()))
+        .whenComplete(
+          () => Future<void>.delayed(Duration(milliseconds: 500))
+              .then((_) => _updateAppbar()),
+        );
+  }
+
   @override
   void initState() {
     _updateAppbar();
@@ -27,7 +39,7 @@ class _AppliancesListState extends State<AppliancesList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff202227),
+      backgroundColor: AppColors.backgroundColor,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -37,21 +49,24 @@ class _AppliancesListState extends State<AppliancesList> {
               'My Home ',
               style: TextStyle(
                 fontFamily: 'SF Rounded',
-                fontSize: 32,
-                color: Colors.white,
+                fontSize: 28,
+                color: Colors.grey,
               ),
             ),
           ),
           SizedBox(
-            height: 30,
+            height: 20,
           ),
           Container(
-            padding: EdgeInsets.only(left: 20),
+            padding: EdgeInsets.symmetric(horizontal: 50),
             child: Row(
               children: [
-                Image.asset(
-                  'assets/lightning.png',
-                  scale: 0.99,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 0.0),
+                  child: Image(
+                      image: AssetImage(AppImages.lightning),
+                      width: 50,
+                      height: 50),
                 ),
                 Container(
                   padding: EdgeInsets.only(left: 20),
@@ -62,7 +77,7 @@ class _AppliancesListState extends State<AppliancesList> {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
-                            '18,05',
+                            '20,05',
                             style: TextStyle(
                               fontFamily: 'SF Rounded',
                               fontSize: 54,
@@ -102,25 +117,27 @@ class _AppliancesListState extends State<AppliancesList> {
             ),
           ),
           SizedBox(
-            height: 40,
+            height: 20,
           ),
           Container(
             margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
-            width: 413,
-            height: 106,
+            width: 420,
+            height: 110,
             decoration: BoxDecoration(
               border: Border.all(
                 width: 1.5,
                 color: Colors.white.withOpacity(0.1),
               ),
-              borderRadius: BorderRadius.circular(25),
+              borderRadius: BorderRadius.circular(10),
             ),
             child: Row(
               children: [
-                Image.asset(
-                  'assets/lightning.png',
-                  width: 70,
-                  height: 70,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  child: Image(
+                      image: AssetImage(AppImages.rooter),
+                      width: 50,
+                      height: 50),
                 ),
                 Container(
                   padding: EdgeInsets.only(left: 2, right: 15),
@@ -128,7 +145,7 @@ class _AppliancesListState extends State<AppliancesList> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Name, Vorname',
+                        'Name, Location',
                         style: TextStyle(
                           fontFamily: 'SF Rounded',
                           fontSize: 18,
@@ -143,7 +160,7 @@ class _AppliancesListState extends State<AppliancesList> {
                             color: Colors.white.withOpacity(0.25),
                           ),
                           Text(
-                            'Worms Germany',
+                            ' Worms Germany',
                             style: TextStyle(
                               fontFamily: 'SF Rounded',
                               fontSize: 16,
@@ -156,27 +173,25 @@ class _AppliancesListState extends State<AppliancesList> {
                   ),
                 ),
                 Container(
-                  width: 77,
-                  height: 29,
+                  width: 70,
+                  height: 30,
                   decoration: BoxDecoration(
                     gradient: const LinearGradient(
                       begin: Alignment(0.01, 0.13),
-                      end: Alignment(0.97, 0.84),
-                      colors: [Color(0xff79fd7b), Color(0xff3dcd98)],
+                      end: Alignment(0.77, 0.74),
+                      colors: [AppColors.splashColor, AppColors.detectorColor],
                     ),
                     borderRadius: BorderRadius.circular(5),
                   ),
                   child: TextButton(
                     child: Text('Owner',
-                        style: TextStyle(fontSize: 12, color: Colors.black)),
-                    onPressed: () => Navigator.of(context)
-                        .push(MaterialPageRoute<void>(
-                            builder: (BuildContext context) => Personal()))
-                        .whenComplete(
-                          () =>
-                              Future<void>.delayed(Duration(milliseconds: 500))
-                                  .then((_) => _updateAppbar()),
-                        ),
+                        style: TextStyle(
+                            fontSize: 13,
+                            color: Colors.black54,
+                            fontWeight: FontWeight.bold)),
+
+                    //  void _navigatorTop() funktion erstellt
+                    onPressed: () => _navigatorTop(),
                   ),
                 ),
               ],
@@ -185,11 +200,8 @@ class _AppliancesListState extends State<AppliancesList> {
           Expanded(
             child: AppliancesListFireBase(),
           ),
-          //
         ],
-        //
       ),
-      // bottomNavigationBar: BottomNavButtons(),
     );
   }
 }
