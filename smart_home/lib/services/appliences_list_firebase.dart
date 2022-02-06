@@ -102,7 +102,7 @@ class _AppliancesListFireBaseState extends State<AppliancesListFireBase> {
                                         child: Padding(
                                           padding: EdgeInsets.symmetric(
                                               horizontal: 0, vertical: 0),
-                                          child: Icon(Icons.storm_rounded,
+                                          child: Icon(Icons.power,
                                               color: _c),
                                         ),
                                       ),
