@@ -12,6 +12,7 @@ class Notifications extends StatefulWidget {
 class _NotificationsState extends State<Notifications> {
   @override
   Widget build(BuildContext context) {
+    bool isChecked = false;
     return Scaffold(
       body: Container(
         padding: EdgeInsets.all(16.0),
@@ -19,6 +20,49 @@ class _NotificationsState extends State<Notifications> {
             scrollDirection: Axis.vertical,
             child: Column(
               children: [
+                Padding(
+                  padding: EdgeInsets.only(top: 10),
+                  child: Center(
+                      child: Text("Set up your Appliences",
+                          style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.black87,
+                              fontWeight: FontWeight.bold))),
+                ),
+                Container(
+                    color: Colors.white,
+                    padding: EdgeInsets.all(20.0),
+                    height: 100,
+                    child: Row(
+                      children: [
+                        Text('Favorites', style: TextStyle(fontSize: 18)),
+                        // Checkbox for choose of Settings and shows the ListView of items
+                        Checkbox(
+                          autofocus: true,
+                          value: isChecked,
+                          onChanged: (value) {
+                            setState(() {
+                              isChecked = value!;
+                            });
+                          },
+                        ),
+                        SizedBox(width: 110),
+                        Text(
+                          'Bills',
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        // Checkbox for choose of Settings and shows the ListView of items
+                        Checkbox(
+                          value: isChecked = true,
+                          onChanged: (value) {
+                            setState(() {
+                              isChecked = value!;
+                            });
+                          },
+                        ),
+                      ],
+                    )),
+                SizedBox(height: 5),
                 buildSettingCards(),
                 buildSettingCards(),
                 buildSettingCards(),
@@ -44,11 +88,13 @@ Card buildSettingCards() {
           ListTile(
             title: Text(copfText),
             subtitle: Text(subText),
-            trailing: Icon(Icons.settings),
+            trailing: Icon(Icons.share_rounded),
           ),
           Container(
-            height: 200.0,
+            height: 130.0,
             child: Ink.image(
+              width: 300,
+              height: 300,
               image: AssetImage('images/microvelle.png'),
               fit: BoxFit.cover,
             ),
@@ -62,7 +108,7 @@ Card buildSettingCards() {
                 },
               ),
               TextButton(
-                child: const Text('LEARN MORE'),
+                child: const Text('DETAILS'),
                 onPressed: () {
                   //
                 },
