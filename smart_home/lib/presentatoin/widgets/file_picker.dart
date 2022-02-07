@@ -1,15 +1,9 @@
 import 'dart:io';
-import 'dart:convert';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:smart_home/main.dart';
-import 'package:path_provider/path_provider.dart' as pathProvider;
-import 'package:path/path.dart';
-
 
 class FilePicker extends StatefulWidget {
   const FilePicker({Key? key}) : super(key: key);
@@ -22,32 +16,12 @@ class _FilePickerState extends State<FilePicker> {
   final file = ImagePicker();
   File? image;
 
-  /*Future readFile() async {
-    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-
-    if (image == null) return;
-
-    var tmpFile = File(image.path);
-    print(tmpFile);
-    tmpFile = await tmpFile.copy(tmpFile.path);
-
-    // 5. Get the path to the apps directory so we can save the file to it.
-    final path = await pathProvider.getApplicationDocumentsDirectory();
-    final fileName = basename(image.path); // Filename without extension
-    final fileExtension = extension(image.path); // e.g. '.jpg'
-
-    tmpFile = await tmpFile.copy('$path/$fileName$fileExtension');
-    setState(() => this.image = tmpFile);
-  }*/
-/*  ====================below old code but working ===============================*/
-
   Future readFile() async {
-
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
       if (image == null) return;
       final imageTemporary = File(image.path);
-       image.openRead(0,9);
+      image.openRead(0, 9);
       final result = image;
 
       print(result);
@@ -57,26 +31,15 @@ class _FilePickerState extends State<FilePicker> {
     }
   }
 
- /* Future imgFromCamera() async {
+  Future imgFromCamera() async {
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.camera);
       if (image == null) return;
-
-      File tmpFile = File(image.path);
-      tmpFile = await tmpFile.copy(tmpFile.path);
-      final path = await pathProvider.getApplicationDocumentsDirectory();
-      final fileName = basename(image.path);
-      final fileExtension = extension(image.path);
-
-      tmpFile = await tmpFile.copy('$path/$fileName$fileExtension');
-      setState(() => this.image = tmpFile);
-
-
     } on PlatformException catch (e) {
       print('Failed to take camera: $e');
     }
   }
-*/
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,25 +58,25 @@ class _FilePickerState extends State<FilePicker> {
                 color: Colors.transparent,
                 child: image != null
                     ? ClipRRect(
-                  borderRadius: BorderRadius.circular(15),
-                  child: Image.file(
-                    image!,
-                    width: 120,
-                    height: 105,
-                    fit: BoxFit.fitHeight,
-                  ),
-                )
+                        borderRadius: BorderRadius.circular(15),
+                        child: Image.file(
+                          image!,
+                          width: 120,
+                          height: 105,
+                          fit: BoxFit.fitHeight,
+                        ),
+                      )
                     : Container(
-                  decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: BorderRadius.circular(15)),
-                  width: 120,
-                  height: 105,
-                  child: Icon(
-                    Icons.camera_alt,
-                    color: Colors.grey[800],
-                  ),
-                ),
+                        decoration: BoxDecoration(
+                            color: Colors.grey[200],
+                            borderRadius: BorderRadius.circular(15)),
+                        width: 120,
+                        height: 105,
+                        child: Icon(
+                          Icons.camera_alt,
+                          color: Colors.grey[800],
+                        ),
+                      ),
               ),
             ),
           )
@@ -121,20 +84,6 @@ class _FilePickerState extends State<FilePicker> {
       ),
     );
   }
-
-  /*Padding(
-  //padding: const EdgeInsets.symmetric(vertical: 0),
-  padding: const EdgeInsets.fromLTRB(
-  10.0, 0.0, 10.0, 0.0),
-  child: ClipRRect(
-  borderRadius: BorderRadius.circular(15),
-  child: Image(
-  image: ResizeImage(
-  AssetImage(AppImages.microvelle),
-  width: 120,
-  height: 105)),
-  ),
-  ),*/
 
   void _showPicker(BuildContext context) {
     showModalBottomSheet<void>(
@@ -169,10 +118,7 @@ class _FilePickerState extends State<FilePicker> {
                               color: Colors.blue, fontWeight: FontWeight.bold)),
                       onTap: () {
                         readFile();
-                        Navigator.of(context).pop();
-                            /*.push(MaterialPageRoute<void>(
-                            builder: (BuildContext context) => MyApp()));*/
-                        // hier muss noch für Navigate einsgestellt werden
+                        //Navigator.of(context).pop();
                       }),
                   ListTile(
                     leading: Icon(Icons.photo_camera),
@@ -180,8 +126,8 @@ class _FilePickerState extends State<FilePicker> {
                         style: TextStyle(
                             color: Colors.blue, fontWeight: FontWeight.bold)),
                     onTap: () {
-                      //imgFromCamera();
-                      Navigator.of(context).pop();
+                      imgFromCamera();
+                      //Navigator.of(context).pop();
                     },
                   ),
                 ],
